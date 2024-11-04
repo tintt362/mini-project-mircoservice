@@ -1,10 +1,13 @@
 package com.trongtin.accounts.service.impl;
 
 import com.trongtin.accounts.constants.AccountsConstants;
+import com.trongtin.accounts.dto.AccountsDTO;
 import com.trongtin.accounts.dto.CustomerDTO;
 import com.trongtin.accounts.entity.Accounts;
 import com.trongtin.accounts.entity.Customer;
 import com.trongtin.accounts.exception.CustomerAlreadyExistsException;
+import com.trongtin.accounts.exception.ResouceNotFoundException;
+import com.trongtin.accounts.mapper.AccountsMapper;
 import com.trongtin.accounts.mapper.CustomerMapper;
 import com.trongtin.accounts.repository.AccountsRepository;
 import com.trongtin.accounts.repository.CustomerRepository;
@@ -12,12 +15,13 @@ import com.trongtin.accounts.service.IAccountsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
 @AllArgsConstructor
-public class AccountsServiceImpl implements IAccountsService {
+public class  AccountsServiceImpl implements IAccountsService {
 
     private CustomerRepository customerRepository;
     private AccountsRepository accountsRepository;
@@ -32,8 +36,73 @@ public class AccountsServiceImpl implements IAccountsService {
                 throw new RuntimeException(e);
             }
         }
+        customer.setCreatedBy("Anonymous");
+        customer.setCreatedAt(LocalDateTime.now());
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
+    }
+
+    @Override
+    public CustomerDTO fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> {
+            try {
+                throw new ResouceNotFoundException("Customer", "mobileNumber", mobileNumber);
+            } catch (ResouceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(() -> {
+            try {
+                throw new ResouceNotFoundException("Account", "customerId ", mobileNumber);
+            } catch (ResouceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        CustomerDTO customerDTO = CustomerMapper.mapToCustomerDTO(customer, new CustomerDTO());
+        customerDTO.setAccountsDTO(AccountsMapper.mapToAccountsDTO(accounts, new AccountsDTO()));
+
+        return customerDTO;
+    }
+
+    @Override
+    public boolean deleteAccount(String mobileNumber) {
+        Customer customer = null;
+        try {
+            customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                    () -> new ResouceNotFoundException("Customer", "mobileNumber", mobileNumber)
+            );
+        } catch (ResouceNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        accountsRepository.deleteByCustomerId(customer.getCustomerId());
+        customerRepository.deleteById(customer.getCustomerId());
+        return true;
+    }
+
+    @Override
+    public boolean updateAccount(CustomerDTO customerDTO) throws ResouceNotFoundException {
+        boolean isUpdated = false;
+        AccountsDTO accountsDTO = customerDTO.getAccountsDTO();
+        if (accountsDTO != null) {
+            Accounts accounts = accountsRepository.findById(accountsDTO.getAccountNumber()).orElseThrow(
+                    () -> new ResouceNotFoundException("Account", "AccountNumber", accountsDTO.getAccountNumber().toString())
+            );
+
+            AccountsMapper.mapToAccounts(accountsDTO, accounts);
+            accounts = accountsRepository.save(accounts);
+
+            Long customerId = accounts.getCustomerId();
+            Customer customer = customerRepository.findById(customerId).orElseThrow(
+                    () -> new ResouceNotFoundException("Customer", "customerId", customerId.toString())
+            );
+
+            CustomerMapper.mapToCustomer(customerDTO, customer);
+            customerRepository.save(customer);
+            isUpdated = true;
+        }
+         return isUpdated;
     }
 
     private Accounts createNewAccount(Customer customer) {
@@ -43,6 +112,9 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
+
+        newAccount.setCreatedBy("Anonymous");
+        newAccount.setCreatedAt(LocalDateTime.now());
         return newAccount;
     }
 }

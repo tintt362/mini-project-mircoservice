@@ -1,4 +1,4 @@
-package com.trongtin.cards.entity;
+package com.trongtin.loans.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -16,7 +16,9 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class BaseEntity {
 
     @CreatedDate
@@ -28,7 +30,7 @@ public class BaseEntity {
     private String createdBy;
 
     @LastModifiedDate
-    @Column(insertable = false) 
+    @Column(insertable = false)
     private LocalDateTime updatedAt;
 
     @LastModifiedBy

@@ -1,0 +1,11 @@
+
+build:
+  version: "1.0"
+
+loans:
+  message: "Welcome to EZ Bank Loans related Prod APIs"
+  contactDetails:
+    name: "tintrongthai_Prod"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

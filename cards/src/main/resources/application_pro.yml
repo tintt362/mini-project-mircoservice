@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: "pro"
+
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome to EZ Bank Card related Prod APIs"
+  contactDetails:
+    name: "tintrongthai_Prod"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

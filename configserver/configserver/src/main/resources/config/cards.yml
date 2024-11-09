@@ -1,0 +1,12 @@
+
+build:
+  version: "3.0"
+
+
+cards:
+  message: "Welcome to EZ Bank Cards related local APIs"
+  contactDetails:
+    name: "tintrongthai"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

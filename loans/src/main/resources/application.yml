@@ -9,6 +9,10 @@ spring:
     username: sa
     password: ''
 
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_pro.yml"
   h2:
     console:
       enabled: true
@@ -18,3 +22,13 @@ spring:
       ddl-auto: update
     show-sql: true
 
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to EZ Bank Loans related  APIs"
+  contactDetails:
+    name: "tintrongthai"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

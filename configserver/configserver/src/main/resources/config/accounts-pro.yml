@@ -1,0 +1,11 @@
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to EZ Bank accounts related Prod APIs"
+  contactDetails:
+    name: "tintrongthai_pro "
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

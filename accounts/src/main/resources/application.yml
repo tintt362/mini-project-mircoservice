@@ -18,3 +18,21 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_pro.yml"
+  profiles:
+    active:
+      - "qa"
+build:
+  version: "3.0"
+
+
+accounts:
+  message: "Welcome to EZ Bank accounts related local APIs"
+  contactDetails:
+    name: "tintrongthai"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

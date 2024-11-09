@@ -1,0 +1,11 @@
+
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to EZ Bank accounts related QA APIs"
+  contactDetails:
+    name: "tintrongthai"
+    email: "john@eazybank.com"
+  onCallSupport:
+    - 0364329047

@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@EnableConfigurationProperties(value = {CardsContactInfoDto.class})
 @Validated
 public class CardsController {
 

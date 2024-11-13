@@ -3,6 +3,11 @@ server:
   error:
     include-stacktrace: never
 spring:
+  application:
+    name: "accounts"
+
+  profiles:
+    active: "pro"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -19,20 +24,17 @@ spring:
     show-sql: true
 
   config:
-    import:
-      - "application_qa.yml"
-      - "application_pro.yml"
-  profiles:
-    active:
-      - "qa"
-build:
-  version: "3.0"
+    import: "optional:configserver:http://localhost:8071/"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
 
 
-accounts:
-  message: "Welcome to EZ Bank accounts related local APIs"
-  contactDetails:
-    name: "tintrongthai"
-    email: "john@eazybank.com"
-  onCallSupport:
-    - 0364329047
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

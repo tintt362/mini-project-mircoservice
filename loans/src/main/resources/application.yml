@@ -10,9 +10,14 @@ spring:
     password: ''
 
   config:
-    import:
-      - "application_qa.yml"
-      - "application_pro.yml"
+    import: "optional:configserver:http://localhost:8071/"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  profiles:
+    active: "pro"
   h2:
     console:
       enabled: true
@@ -21,14 +26,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  application:
+    name: "loans"
 
-build:
-  version: "3.0"
 
-loans:
-  message: "Welcome to EZ Bank Loans related  APIs"
-  contactDetails:
-    name: "tintrongthai"
-    email: "john@eazybank.com"
-  onCallSupport:
-    - 0364329047
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

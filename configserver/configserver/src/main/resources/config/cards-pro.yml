@@ -1,11 +1,11 @@
 
 build:
-  version: "2.0"
+  version: "1.0"
 
 cards:
-  message: "Welcome to EZ Bank Cards related QA APIs"
+  message: "Welcome to EZ Bank Cards related Pro APIs"
   contactDetails:
-    name: "tintrongthai_QA"
+    name: "tintrongthai_Pro"
     email: "john@eazybank.com"
   onCallSupport:
     - 0364329047

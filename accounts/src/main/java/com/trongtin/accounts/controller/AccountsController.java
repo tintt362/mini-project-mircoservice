@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/api/", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
-@EnableConfigurationProperties(value = {AccountsContactInfoDto.class})
 @Tag(
         name = "CRUD REST APIs for Accounts in EZ Bank"
         , description = "CRUD REST APIs in EZ Bank to CREATE, UPDATE, FETCH AND DELETE account details"
@@ -39,7 +38,6 @@ public class AccountsController {
 
     @Autowired
     private IAccountsService iAccountsService;
-
 
     @Value("${build.version}")
     private String buildVersion;

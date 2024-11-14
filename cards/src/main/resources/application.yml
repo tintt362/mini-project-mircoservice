@@ -8,12 +8,20 @@ spring:
 
   profiles:
     active: "pro"
+#  datasource:
+#    url: jdbc:mysql://localhost:3308/cardsdb
+#
+#    username: root
+#    password: admin123
+
   datasource:
-    url: jdbc:mysql://localhost:3308/cardsdb
-
-    username: root
-    password: admin123
-
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+    h2:
+      console:
+        enabled: true
   jpa:
     show-sql: true
   sql:
@@ -31,3 +39,27 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "cards"
+    description: "Eazy Bank cards Application"
+    version: "1.0"

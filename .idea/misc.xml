@@ -9,11 +9,14 @@
         <option value="$PROJECT_DIR$/cards/pom.xml" />
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
         <option value="$PROJECT_DIR$/configserver/configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaserver/eurekaserver/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaserver/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaserver/eurekaserver/pom.xml" />
       </set>
     </option>
   </component>

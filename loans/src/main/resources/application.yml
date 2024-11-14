@@ -4,27 +4,22 @@ server:
     include-stacktrace: never
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+    url: jdbc:mysql://localhost:3307/loansdb
+
+    username: root
+    password: admin123
 
   config:
     import: "optional:configserver:http://localhost:8071/"
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
+
   profiles:
     active: "pro"
-  h2:
-    console:
-      enabled: true
+
+  sql:
+    init:
+      mode: always
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
+
     show-sql: true
   application:
     name: "loans"
